@@ -1,0 +1,7 @@
+<h2>New Post</h2>
+<form action="{% url 'posts:new' %}" method="post">
+{% csrf_token %}
+  Title:<input type="text" name="title" id="title" /><br/>
+  <textarea rows="4" cols="128" name="body" id="body"></textarea>
+<input type="submit" value="post"/>
+</form>

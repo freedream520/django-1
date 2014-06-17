@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -21,7 +20,7 @@ def login_view(request):
             if user.is_active:
                 login(request, user)
                 request.user = user
-                return HttpResponseRedirect('/')
+                return redirect(reverse('home'))
             else:
                 return render(request, 'home/index.html',{'error_message':"User is not active"})
         else:
