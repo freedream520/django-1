@@ -1,7 +1,23 @@
-<a href="{% url 'polls:index' %}">Poll Page</a><br />
-{% if request.user.is_authenticated %}
-  <p>You are logged in</p>
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+<h1>Home Page</h1>
+{% if error_message %}<p><strong>{{ error_message }}</p><strong>{% endif %}
+
+{% if user.is_authenticated %}
+  <h2>Welcome {{ user.username }}</h2>
+  <form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+      <input type="submit" value="Log Out"/>
+  </form>
+  <h2>User Profiles</h2>
+  {% for u in user_list %}
+    <a href="{% url 'user' u.id %}">{{ u.username }}</a><br />
+  {% endfor %}
 {% else %}
-  <a href="{% url 'login' %}">Login Here</a><br />
-  <a href="{% url 'register' %}">Register Here</a>
+  {% include "home/login.html" %}
+  {% include "home/register.html" %}
 {% endif %}
+{% endblock %}
