@@ -10,4 +10,6 @@ urlpatterns = patterns('',
     url(r'^polls/', include('polls.urls', namespace='polls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'django_tutorial.views.home', name='home'),
+    url(r'^register/', 'django_tutorial.views.register', name='register'),
+    url(r'^login/', 'django_tutorial.views.login_view', name='login'),
 )

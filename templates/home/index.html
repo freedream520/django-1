@@ -1,1 +1,7 @@
-<a href="{% url 'polls:index' %}">Poll Page</a>
+<a href="{% url 'polls:index' %}">Poll Page</a><br />
+{% if request.user.is_authenticated %}
+  <p>You are logged in</p>
+{% else %}
+  <a href="{% url 'login' %}">Login Here</a><br />
+  <a href="{% url 'register' %}">Register Here</a>
+{% endif %}
