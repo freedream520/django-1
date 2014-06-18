@@ -1,7 +1,13 @@
 <h2>New Post</h2>
 <form action="{% url 'posts:new' %}" method="post">
 {% csrf_token %}
-  Title:<input type="text" name="title" id="title" /><br/>
-  <textarea rows="4" cols="128" name="body" id="body"></textarea>
-<input type="submit" value="post"/>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label for="body">Text</label>
+    <textarea name="body" id="body" class="form-control"></textarea><br/>
+  </div>
+<input type="submit" value="Post" class="btn btn-default"/>
 </form>

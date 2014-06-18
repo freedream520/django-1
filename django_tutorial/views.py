@@ -2,16 +2,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from posts.models import Post
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     user_list = None
+    post_list = None
     if request.user.is_authenticated():
         user_list = User.objects.all()
-    return render(request, 'home/index.html', {'user_list':user_list})
+        post_list = Post.objects.all().order_by('-pub_date')
+    return render(request, 'home/index.html', {'user_list':user_list, 'post_list':post_list})
 
 def login_view(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/')
+        return redirect('/')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -52,18 +56,18 @@ def register(request):
     else:
         return render(request, 'home/index.html')
 
+@login_required
 def logout_view(request):
-    if request.user.is_authenticated():
-        if request.method == 'POST':
-            logout(request)
-        return redirect('/')
-    else:
-        return redirect('/')
+    logout(request)
+    return redirect('/')
 
+@login_required
 def user_page(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    return render(request, 'home/user.html', {'profile':user})
+    post_set = user.post_set.all().order_by('-pub_date')
+    return render(request, 'home/user.html', {'profile':user, 'post_set':post_set})
 
+@login_required
 def user_edit(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     if (request.user.is_authenticated()) and (request.user == user):

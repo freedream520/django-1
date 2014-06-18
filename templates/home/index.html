@@ -3,21 +3,14 @@
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
-<h1>Home Page</h1>
-{% if error_message %}<p><strong>{{ error_message }}</p><strong>{% endif %}
-
+<div class="container">
 {% if user.is_authenticated %}
-  <h2>Welcome {{ user.username }}</h2>
-  <form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-      <input type="submit" value="Log Out"/>
-  </form>
-  <h2>User Profiles</h2>
-  {% for u in user_list %}
-    <a href="{% url 'user' u.id %}">{{ u.username }}</a><br />
+  {% include "posts/new.html" %}
+  {% for p in post_list %}
+    {% include "posts/detail.html" with post=p %}
   {% endfor %}
 {% else %}
-  {% include "home/login.html" %}
   {% include "home/register.html" %}
 {% endif %}
+</div>
 {% endblock %}

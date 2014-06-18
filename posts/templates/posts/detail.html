@@ -1,4 +1,9 @@
-<h2>{{ post.user }}</h2>
-<h4>{{ post.title }}</h4>
-<p>{{ post.body }}</p>
-<p>at {{ post.pub_date }}</p>
+<div class="media">
+  <h4 class="pull-left"><a href="{% url 'user' post.user.id %}">{{ post.user.username }}</a></h4>
+  <div class="media-body">
+    <h4 class="media-heading">{{ post.title }}<small> at {{ post.pub_date }}</small></h4>
+    <div class="well well-sm">
+      <p>{{ post.body|linebreaksbr }}</p>
+    </div>
+  </div>
+</div>
