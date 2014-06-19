@@ -10,7 +10,12 @@
     {% include "posts/detail.html" with post=p %}
   {% endfor %}
 {% else %}
-  {% include "home/register.html" %}
+  <div class="page-header">
+    <h1>This is a Twitter/Facebook like app designed in django!</h1>
+  </div>
+  <div class="well well-lg">
+    <p>Created by Christopher W. Heyer for the purpose of learning web-design and basic web-app development techniques</p>
+  </div>
 {% endif %}
 </div>
 {% endblock %}

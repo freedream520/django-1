@@ -9,9 +9,8 @@ def home(request):
     user_list = None
     post_list = None
     if request.user.is_authenticated():
-        user_list = User.objects.all()
-        post_list = Post.objects.all().order_by('-pub_date')
-    return render(request, 'home/index.html', {'user_list':user_list, 'post_list':post_list})
+        post_list = Post.objects.all()
+    return render(request, 'home/index.html', {'post_list':post_list})
 
 def login_view(request):
     if request.user.is_authenticated():
@@ -54,7 +53,7 @@ def register(request):
         login(request, user)
         return redirect('/')
     else:
-        return render(request, 'home/index.html')
+        return render(request, 'home/register.html')
 
 @login_required
 def logout_view(request):
