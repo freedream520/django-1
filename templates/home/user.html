@@ -1,25 +1,15 @@
 {% extends 'base.html' %}
-
 {% block title %}{{ profile.username }}{% endblock %}
 {% block headers %}
-{# this is a demonstration of conditional formatting for a specific page.. #}
-<style>
-  .jumbotron {
-    color: white;
-    background-color: black;
-  }
-</style>
 {% endblock %}
 {% block content %}
-<div class="container">
-  <div class="jumbotron">
-    <div class="container">
-      <h1>{{ profile.username }}</h1>
-      <p>{{ profile.first_name }} {{ profile.last_name }}</br>{{ profile.email }}</p>
-    </div>
+<div class="jumbotron">
+  <div class="container">
+    <h1>{{ profile.username }}</h1>
+    <p>{{ profile.first_name }} {{ profile.last_name }}</br>{{ profile.email }}</p>
   </div>
-  {% for p in post_set %}
-    {% include "posts/detail.html" with post=p %}
-  {% endfor %}
 </div>
+{% for p in post_set %}
+{% include "posts/detail.html" with post=p %}
+{% endfor %}
 {% endblock %}

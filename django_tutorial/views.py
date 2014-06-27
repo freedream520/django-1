@@ -74,6 +74,7 @@ def user_edit(request, user_id):
             fname = request.POST['fname']
             lname = request.POST['lname']
             email = request.POST['email']
+
             if fname:
                 user.first_name = fname
             if lname:

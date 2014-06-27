@@ -2,11 +2,28 @@
 <html>
 <head>
   <link href="{% static 'bootstrap/bootstrap.css' %}" rel="stylesheet" type = "text/css"/>
+  <script type="text/javascript" src="{% static 'bootstrap/bootstrap.js' %}"></script>
   <title>{% block title %}{% endblock %}</title>
+  <style>
+    body {
+      background-color: #BBEEFF;
+    }
+    .media {
+      border: 1px solid white;
+      border-radius: 20px;
+      margin-bottom: 5px;
+      padding: 10px;
+    }
+    .jumbotron {
+      background-color: #99AAFF;
+    }
+  </style>
   {% block headers %}{% endblock %}
 </head>
 <body>
   {% include "home/navigation.html" %}
-  {% block content %}{% endblock %}
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
 </body>
 </html>

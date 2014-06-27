@@ -1,29 +1,29 @@
-<div class="media">
+{% extends "base.html" %}
+
+{% block title %}Post {{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="media" id="post_{{ post.id }}">
   <h4 class="pull-left"><a href="{% url 'user' post.user.id %}">{{ post.user.username }}</a></h4>
   <div class="media-body">
-    <h4 class="media-heading">{{ post.title }}<small> at {{ post.pub_date }}</small></h4>
-    {% if user == post.user %}
-    <form action="{% url 'posts:delete' post.id %}" method="post">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-default btn-sm pull-right">delete</button>
-    </form>
+    <h3 class="media-heading"><a href="{% url 'posts:detail' post.id %}">{{ post.title }}</a><small> at {{ post.pub_date }}{% if user == post.user %}  <a href="{% url 'posts:edit' post.id %}">edit</a>  <a href="{% url 'posts:delete' post.id %}">delete</a>{% endif %}</small></h3>
+    <ul class="list-group">
+      <li class="list-group-item">{{ post.body|linebreaksbr }}</li>
+    </ul>
+    {% if post.comment_set.all %}
+    <p>Comments:</p>
+    <ul class="list-group">
+      {% for comment in post.comment_set.all %}
+      <li class="list-group-item">{{ comment.body|linebreaksbr }}<span class="pull-right"><a href="{% url 'user' comment.user.id %}">{{ comment.user }}</a> at {{ comment.pub_date }}</span></li>
+      {% endfor %}
+    </ul>
     {% endif %}
-    <div class="well well-sm">
-      <p>{{ post.body|linebreaksbr }}</p>
-
-      {% if post.comment_set.all %}
-      <ul class="list-group">
-        {% for comment in post.comment_set.all %}
-        <li class="list-group-item">{{ comment.body|linebreaksbr }}<span class="pull-right"><a href="{% url 'user' comment.user.id %}">{{ comment.user }}</a> at {{ comment.pub_date }}</span></li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-      
-      <form action="{% url 'posts:comment' post.id %}" method="post">
-        {% csrf_token %}
-        <textarea name="body" id="body" class="form-control" placeholder="Comment..."></textarea>
-        <input type="submit" value="Comment" class="btn btn-default btn-sm pull-right">
-      </form>
-    </div>
   </div>
+  
+  <form action="{% url 'posts:comment' post.id %}" method="post">
+    {% csrf_token %}
+    <textarea name="body" id="body" class="form-control" placeholder="Comment..."></textarea><br/>
+    <input type="submit" value="Comment" class="btn btn-default pull-right">
+  </form>
 </div>
+{% endblock %}

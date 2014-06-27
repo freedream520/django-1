@@ -3,7 +3,6 @@
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
-<div class="container">
 {% if user.is_authenticated %}
   {% include "posts/new.html" %}
   {% for p in post_list %}
@@ -17,5 +16,4 @@
     <p>Created by Christopher W. Heyer for the purpose of learning web-design and basic web-app development techniques</p>
   </div>
 {% endif %}
-</div>
 {% endblock %}
